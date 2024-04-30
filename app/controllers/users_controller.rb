@@ -12,13 +12,14 @@ class UsersController < ApplicationController
     if @user.save
       # log_in (@user)
       redirect_to user_url(@user)
-    else
-      render 'new'
+    # else
+    #   render 'new'
     end
   end
 end
 
 private
   def user_params
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :password,
+    :password_confirmation)
   end
