@@ -1,1 +1,8 @@
-.correct hello crud
+%p= @user.name
+%p= @user.email
+
+- if logged_in?
+  %p= 'ログイン中'
+  %p= @current_user.name
+- else
+  %p= 'ログインなし'
