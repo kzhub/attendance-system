@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   include SessionsHelper
 
   def new
+    if logged_in?
+      redirect_to root_path
+      return
+    end
   end
 
   def create
