@@ -7,10 +7,11 @@ class AttendancesController < ApplicationController
     year = params[:year] ? params[:year].to_i : Date.today.year
     month = params[:month] ? params[:month].to_i : Date.today.month
 
-    @holidays = getHolidays(year, month)
 
     start_date = Date.new(year, month, 1)
     end_date = Date.new(year, month, -1)
+
+    @holidays = getHolidays(year, month)
     @days = (start_date..end_date)
   end
 
