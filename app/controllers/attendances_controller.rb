@@ -2,7 +2,7 @@ require 'holiday_japan'
 class AttendancesController < ApplicationController
 
   def index
-    @attendances = Attendance.where(user_id: 7)
+    @attendances = Attendance.where(user_id: params[:user_id])
 
     year = params[:year].to_i
     month = params[:month].to_i
