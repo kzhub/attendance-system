@@ -1,4 +1,6 @@
 class Attendance < ApplicationRecord
+  belongs_to :user
+
   def self.getCalender(year,month)
     searchYear = getCurrentYearMonth(year,month)[0]
     searchMonth = getCurrentYearMonth(year,month)[1]
