@@ -93,6 +93,7 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
+    holiday_japan (1.4.4)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
@@ -252,6 +253,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   haml-rails
+  holiday_japan
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)

@@ -1,0 +1,26 @@
+- @attendances.each do |attendance|
+    %div
+        %p Attendance Date: #{attendance.attendance_date}
+        %p Start Time: #{attendance.attendance_starttime}
+        %p End Time: #{attendance.attendance_endtime}
+        %p User ID: #{attendance.user_id}
+				
+-# %table
+-#   %thead
+-#     %tr
+-#       %th 日付
+-#       %th 休日区分
+-#       %th 出勤時刻
+-#       %th 退勤時刻
+-#       %th 休憩時間
+-#       %th 勤務合計
+-#   %tbody
+-#   - @days.each do |date|
+-#     - day_of_week = %w(日 月 火 水 木 金 土)[date.wday]
+-#     %tr
+-#       %td= "#{date} (#{day_of_week})"
+-#       %td= "#{@holidays[date]}"
+-#       %td= "9:00"
+-#       %td= "18:00"
+-#       %td= "1:00"
+-#       %td= "8:00"

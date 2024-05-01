@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  attendance_date: 2024-05-01
+  attendance_starttime: 2024-05-01 08:15:08
+  attendance_endtime: 2024-05-01 08:15:08
+
+two:
+  attendance_date: 2024-05-01
+  attendance_starttime: 2024-05-01 08:15:08
+  attendance_endtime: 2024-05-01 08:15:08
