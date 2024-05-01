@@ -1,6 +1,6 @@
 require 'holiday_japan'
-class AttendancesController < ApplicationController
 
+class AttendancesController < ApplicationController
   def index
     @attendances = Attendance.where(user_id: params[:user_id])
 
@@ -41,7 +41,6 @@ class AttendancesController < ApplicationController
     else
       redirect_to user_path
     end
-
   end
 
 end

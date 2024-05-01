@@ -1,12 +1,9 @@
-= form_with model: @attendance, url: user_attendances_path(@user) do |form|
-  %div
-    = form.submit disabled: @isAttendance[0]
 
-= form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
-  %div
-    = form.submit disabled: !@isAttendance[0]
+%div.attendButtonWrapper
+	= form_with model: @attendance, url: user_attendances_path(@user) do |form|
+		%div.submitButton
+			= form.submit "出勤", disabled: @isAttendance[0]  # ボタンのラベルを "出勤" に指定
 
-%p= @isAttendance[0]
-
-%p= '出勤中レコードID'
-%p= @isAttendance[1]
+	= form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
+		%div.submitButton
+			= form.submit "退勤", disabled: !@isAttendance[0]  # ボタンのラベルを "退勤" に指定
