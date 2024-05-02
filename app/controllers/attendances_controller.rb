@@ -25,7 +25,7 @@ class AttendancesController < ApplicationController
       attendance_date: Date.today,
       attendance_starttime: Time.now,
       attendance_endtime: nil,
-      user_id: params[:user_id]#url構造からuseridを取得
+      user_id: params[:user_id]
     )
 
     if @Attendance.save
@@ -37,21 +37,23 @@ class AttendancesController < ApplicationController
 
   def update
     @attendance = Attendance.find(params[:id])
+
+    # if params[:attendance]&.dig(:operation) == 'start_break'
+    #   @attendance.breaktime_starttime = Time.now
+    # elsif params[:attendance]&.dig(:operation) == 'end_break'
+    #   @attendance.breaktime_endtime = Time.now
+    # elsif
+    # end
     @attendance.attendance_endtime = Time.now
 
     if @attendance.save
-      redirect_to root_path
+        redirect_to root_path
     else
-      redirect_to user_path
+        redirect_to user_path
     end
-  end
+end
 
   private
-    def user_params
-      params.require(:user).permit(:name, :email, :password,
-      :password_confirmation)
-    end
-
     def logged_in_user
       unless logged_in?
         flash[:danger] = "Please log in."
