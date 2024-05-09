@@ -1,3 +1,58 @@
-// Place all the styles related to the Attendances controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+table {
+	margin: 0 auto;
+	max-width: 800px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+th {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: bold;
+}
+
+tr {
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+}
+
+td {
+  border: 1px solid #dee2e6;
+  padding: 0.75rem; 
+  text-align: left;
+}
+
+tr:hover {
+  background-color: #e9ecef; 
+}
+
+.attendButtonWrapper{
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	form{
+		display: block;
+	}
+}
+.submitButton {
+	display: flex;
+	input{
+		border: none;
+		width: 200px;
+		height: 50px;
+		border-radius: 50px;
+		cursor: pointer;
+		transition: .4s;
+		&:hover{
+			transition: .4s;
+			opacity: .5;
+		}
+		&:disabled{
+			pointer-events: none;
+		}
+	}
+}
