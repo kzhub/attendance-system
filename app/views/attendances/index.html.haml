@@ -3,6 +3,7 @@
 -#     %p Attendance Date: #{attendance.attendance_date}
 -#     %p Start Time: #{attendance.attendance_starttime}
 -#     %p End Time: #{attendance.attendance_endtime}
+-#     %p break Time: #{attendance.breaktime_starttime}
 -#     %p User ID: #{attendance.user_id}
 
 %h1 2024年 5月
@@ -24,5 +25,5 @@
       - matching_attendance = @attendances.find { |attendance| attendance.attendance_date == date }
       %td= matching_attendance&.attendance_starttime&.strftime('%H:%M').presence || ""
       %td= matching_attendance&.attendance_endtime&.strftime('%H:%M').presence || ""
-      %td= ""
-      %td= ""
+      %td= matching_attendance&.breaktime_starttime&.strftime('%H:%M').presence || ""
+      %td= matching_attendance&.breaktime_endtime&.strftime('%H:%M').presence || ""

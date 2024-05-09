@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  #namespace切ってまとめられるかも
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
@@ -7,6 +6,9 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   resources :users do
-    resources :attendances
+    resources :attendances do
+      resource :breaktimes_start, only: %i[create], controller: 'attendances/breaktimes_start'
+      resource :breaktimes_end, only: %i[create]
+    end
   end
 end

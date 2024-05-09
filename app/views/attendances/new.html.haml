@@ -1,9 +1,46 @@
 
-%div.attendButtonWrapper
-	= form_with model: @attendance, url: user_attendances_path(@user) do |form|
-		%div.submitButton
-			= form.submit "出勤", disabled: @isAttendance[0]  # ボタンのラベルを "出勤" に指定
+-# %div.attendButtonWrapper
+-# 	= form_with model: @attendance, url: user_attendances_path(@user) do |form|
+-# 		%div.submitButton
+-# 			= form.submit "出勤", disabled: @isAttendance[0]  # ボタンのラベルを "出勤" に指定
 
-	= form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
-		%div.submitButton
-			= form.submit "退勤", disabled: !@isAttendance[0]  # ボタンのラベルを "退勤" に指定
+-# 	= form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
+-# 		%div.submitButton
+-# 			= form.submit "退勤", disabled: !@isAttendance[0]  # ボタンのラベルを "退勤" に指定
+
+%div.attendButtonWrapper
+    = form_with model: @attendance, url: user_attendances_path(@user) do |form|
+        %div.submitButton
+            = form.submit "出勤", disabled: @isAttendance[0]
+
+    = form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
+        %div.submitButton
+            = form.submit "退勤", disabled: !@isAttendance[0]
+
+    -# = form_with model: @attendance, url: user_breaktimes_path(@user), method: :post do |form|
+    -#     %div.submitButton
+    -#         = form.submit "休憩開始"
+    -#         -# = form.submit "休憩開始", disabled: @isAttendance[0]
+
+    -# = form_with model: @attendance, url: user_breaktime_path(@user, @isAttendance[1]), method: :patch do |form|
+    -#     %div.submitButton
+    -#         = form.submit "休憩終了", disabled: !@isAttendance[0]
+
+    -# = form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
+    -#     %div.submitButton
+    -#         = form.submit "休憩開始", params: { target: 'start_break' }, disabled: !@isAttendance[0]
+            -# = form.hidden_field :operation, value: 'start_break'
+    -# = form_with model: @attendance, url: user_attendance_breaktimes(@user, @isAttendance[1]), method: :post do |form|
+    -#     %div.submitButton
+    -#         = form.submit "休憩開始", params: { target: 'start_break' }, disabled: !@isAttendance[0]
+
+    = form_with model: @attendance, url: user_attendance_breaktimes_start_path(@user, @isAttendance[1]), method: :post do |form|
+        %div.submitButton
+            = form.submit "休憩開始"
+
+            -# = form.submit "休憩開始", params: { target: 'start_break' }, disabled: !@isAttendance[0]
+
+
+    = form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
+        %div.submitButton
+            = form.submit "休憩終了", params: { target: 'end_break' }, disabled: @isAttendance[0] || !@attendance.breaktime_starttime.present?
