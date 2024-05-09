@@ -1,0 +1,2 @@
+module Attendances::BreaktimesEndHelper
+end

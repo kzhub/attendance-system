@@ -41,6 +41,6 @@
             -# = form.submit "休憩開始", params: { target: 'start_break' }, disabled: !@isAttendance[0]
 
 
-    = form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
+    = form_with model: @attendance, url: user_attendance_breaktimes_end_path(@user, @isAttendance[1]), method: :post do |form|
         %div.submitButton
-            = form.submit "休憩終了", params: { target: 'end_break' }, disabled: @isAttendance[0] || !@attendance.breaktime_starttime.present?
+            = form.submit "休憩終了"
