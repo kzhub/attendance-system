@@ -18,6 +18,8 @@
     - break_time = (attendance.breaktime_endtime - attendance.breaktime_starttime)
     - net_work_time = work_time - break_time
     - total_time += net_work_time
+  - elsif attendance.attendance_endtime && attendance.attendance_starttime
+    - total_time += (attendance.attendance_endtime - attendance.attendance_starttime)
 - hours = total_time / 3600
 - minutes = (total_time % 3600) / 60
 - formatted_time = "#{sprintf('%02d', hours)}:#{sprintf('%02d', minutes)}"
