@@ -1,8 +1,13 @@
-%p= @user.name
-%p= @user.email
-
-- if logged_in?
-  %p= 'ログイン中'
-  %p= @current_user.name
-- else
-  %p= 'ログインなし'
+%h1.pageTitle アカウント情報
+%div.contentWrapper
+  %table.user-table
+    %tbody
+      %tr
+        %th ID
+        %td= @user.id
+      %tr
+        %th ユーザー名
+        %td= @user.name
+      %tr
+        %th メールアドレス
+        %td= @user.email

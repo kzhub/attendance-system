@@ -1,46 +1,34 @@
-
--# %div.attendButtonWrapper
--# 	= form_with model: @attendance, url: user_attendances_path(@user) do |form|
--# 		%div.submitButton
--# 			= form.submit "出勤", disabled: @isAttendance[0]  # ボタンのラベルを "出勤" に指定
-
--# 	= form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
--# 		%div.submitButton
--# 			= form.submit "退勤", disabled: !@isAttendance[0]  # ボタンのラベルを "退勤" に指定
+%div#clock
 
 %div.attendButtonWrapper
     = form_with model: @attendance, url: user_attendances_path(@user) do |form|
         %div.submitButton
-            = form.submit "出勤", disabled: @isAttendance[0]
-
-    = form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
+            = form.submit "出勤",  disabled: !@lastAttendance.attendance_starttime.nil? && @lastAttendance.attributes.values.all?(&:nil?) || !@lastAttendance.attendance_starttime.nil?
+            -# = form.submit "出勤",  disabled: !@lastAttendance.attendance_starttime.nil? && @lastAttendance.attributes.values.all?(&:nil?) || !@lastAttendance.attendance_starttime.nil?
+						
+    = form_with model: @attendance, url: user_attendance_path(@user,  @lastAttendance ? (@lastAttendance.id || 111) : 111), method: :patch do |form|
         %div.submitButton
-            = form.submit "退勤", disabled: !@isAttendance[0]
+            = form.submit "退勤",  disabled: @lastAttendance.attendance_starttime.nil?  || !@lastAttendance.attendance_endtime.nil?
 
-    -# = form_with model: @attendance, url: user_breaktimes_path(@user), method: :post do |form|
-    -#     %div.submitButton
-    -#         = form.submit "休憩開始"
-    -#         -# = form.submit "休憩開始", disabled: @isAttendance[0]
+%div.attendButtonWrapper
+    = form_with model: @attendance, url: user_attendance_breaktimes_start_path(@user, @lastAttendance ? (@lastAttendance.id || 111) : 111), method: :post do |form|
+        %div.submitButton.breaktime
+            = form.submit "休憩開始", disabled: @lastAttendance.attendance_starttime.nil? || !@lastAttendance.breaktime_starttime.nil?
 
-    -# = form_with model: @attendance, url: user_breaktime_path(@user, @isAttendance[1]), method: :patch do |form|
-    -#     %div.submitButton
-    -#         = form.submit "休憩終了", disabled: !@isAttendance[0]
+    = form_with model: @attendance, url: user_attendance_breaktimes_end_path(@user, @lastAttendance ? (@lastAttendance.id || 111) : 111), method: :post do |form|
+        %div.submitButton.breaktime
+            = form.submit "休憩終了", disabled: @lastAttendance.breaktime_starttime.nil? || !@lastAttendance.breaktime_endtime.nil?
 
-    -# = form_with model: @attendance, url: user_attendance_path(@user, @isAttendance[1]), method: :patch do |form|
-    -#     %div.submitButton
-    -#         = form.submit "休憩開始", params: { target: 'start_break' }, disabled: !@isAttendance[0]
-            -# = form.hidden_field :operation, value: 'start_break'
-    -# = form_with model: @attendance, url: user_attendance_breaktimes(@user, @isAttendance[1]), method: :post do |form|
-    -#     %div.submitButton
-    -#         = form.submit "休憩開始", params: { target: 'start_break' }, disabled: !@isAttendance[0]
+:javascript 
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const time = hours + ':' + minutes + ':' + seconds;
+      document.getElementById('clock').textContent = time;
+    }  
 
-    = form_with model: @attendance, url: user_attendance_breaktimes_start_path(@user, @isAttendance[1]), method: :post do |form|
-        %div.submitButton
-            = form.submit "休憩開始"
+    const intervalId = setInterval(updateClock, 1000);
 
-            -# = form.submit "休憩開始", params: { target: 'start_break' }, disabled: !@isAttendance[0]
-
-
-    = form_with model: @attendance, url: user_attendance_breaktimes_end_path(@user, @isAttendance[1]), method: :post do |form|
-        %div.submitButton
-            = form.submit "休憩終了"
+    updateClock();

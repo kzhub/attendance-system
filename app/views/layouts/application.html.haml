@@ -1,0 +1,40 @@
+!!!
+%html
+  %head
+    %title Mysite
+    %meta{name: "viewport", content: "width=device-width,initial-scale=1"}
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+
+  %body
+    -# %nav.gnav
+    -#   %ul
+    -#     %li 
+    -#       = link_to '出勤簿', user_attendances_path
+    -#     %li 
+    -#       = link_to 'ユーザーページ',user_path(@current_user)
+    -#     %li 
+    -#       = link_to '打刻',  new_user_attendance_url
+    -#     %li 
+    -#       = button_to 'ログアウト', logout_path, method: :delete
+    - if @current_user
+      %nav.gnav
+        %ul
+          %li 
+            = link_to user_path(@current_user) do
+              = image_tag "user-regular.svg", alt: 'ユーザーページ', width: '25', height: '25'
+          %li 
+            = link_to new_user_attendance_url(@current_user) do
+              = image_tag "check-to-slot-solid.svg", alt: '打刻', width: '25', height: '25'
+          %li 
+            = link_to user_attendances_url(@current_user) do
+              = image_tag "calendar-regular.svg", alt: '出勤簿', width: '25', height: '25'
+          %li 
+            = button_to logout_url, method: :delete do
+              = image_tag "arrow-right-from-bracket-solid.svg", alt: 'ログアウト', width: '25', height: '25'
+    - flash.each do |message_type, message|
+      = message
+    = yield

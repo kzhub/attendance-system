@@ -1,58 +1,138 @@
-table {
+h1.pageTitle{
+	font-size: 24px;
+	text-align: center;
+}
+table.attendanceList {
 	margin: 0 auto;
 	max-width: 800px;
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
-}
-
-th {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  padding: 0.75rem;
-  text-align: left;
-  font-weight: bold;
-}
-
-tr {
-  &:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-}
-
-td {
-  border: 1px solid #dee2e6;
-  padding: 0.75rem; 
-  text-align: left;
-}
-
-tr:hover {
-  background-color: #e9ecef; 
+	
+	th {
+		background-color: #f8f9fa;
+		border: 1px solid #dee2e6;
+		padding: 0.75rem;
+		text-align: left;
+		font-weight: bold;
+		height: 32px;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	tr {
+		&:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	}
+	
+	td {
+		border: 1px solid #dee2e6;
+		padding: 0.75rem; 
+		text-align: left;
+	}
+	
+	tr:hover {
+		background-color: #e9ecef; 
+	}
 }
 
 .attendButtonWrapper{
 	display: flex;
 	justify-content: center;
 	gap: 8px;
+	margin-bottom: 8px;
 	form{
 		display: block;
 	}
 }
 .submitButton {
 	display: flex;
+	&.breaktime {
+		input{
+			background: #1EB8D9;
+		}
+	}
 	input{
 		border: none;
-		width: 200px;
-		height: 50px;
-		border-radius: 50px;
-		cursor: pointer;
-		transition: .4s;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: .4s;
+    background: #EB840B;
+    color: #FFFFFF;
 		&:hover{
 			transition: .4s;
 			opacity: .5;
 		}
 		&:disabled{
+			background: #ADADAD;
 			pointer-events: none;
 		}
+	}
+}
+#dateForm{
+	max-width: 800px;
+	margin: 0 auto;
+	margin-bottom: 16px;
+}
+
+#clock {
+	font-family: Arial, sans-serif;
+	font-size: 48px;
+	font-weight: bold;
+	padding: 10px;
+	margin: 0 auto;
+	border-radius: 5px;
+	text-align: center;
+	width: 300px;
+	margin-top: 40px;
+}
+
+.selectorDate {
+	display: inline-flex;
+	align-items: center;
+	position: relative;
+}
+
+.selectorDate::after {
+	position: absolute;
+	right: 15px;
+	width: 10px;
+	height: 7px;
+	background-color: #535353;
+	clip-path: polygon(0 0, 100% 0, 50% 100%);
+	content: '';
+	pointer-events: none;
+}
+
+.selectorDate select {
+	appearance: none;
+	min-width: 230px;
+	height: 2.8em;
+	padding: .4em calc(.8em + 30px) .4em .8em;
+	border: 1px solid #d0d0d0;
+	border-radius: 3px;
+	background-color: #fff;
+	color: #333333;
+	font-size: 1em;
+	cursor: pointer;
+}
+
+.filterButton{
+	height: 2.8em;
+	background: #25292f;
+	color: white;
+	width: 60px;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+	transition: .2s;
+	&:hover{
+		transition: .2s;
+		opacity: .9;
 	}
 }

@@ -1,3 +1,73 @@
-// Place all the styles related to the Users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+h1.pageTitle{
+	text-align: center;
+	padding: 40px 0;
+	font-weight: 600;
+	font-size: 24px;
+}
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+	max-width: 800px;
+	th {
+		background-color: #f8f9fa;
+		border: 1px solid #dee2e6;
+		padding: 0.75rem;
+		text-align: left;
+		font-weight: bold;
+		height: 32px;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	tr {
+		&:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	}
+	
+	td {
+		border: 1px solid #dee2e6;
+		padding: 0.75rem; 
+		text-align: left;
+	}
+	
+	tr:hover {
+		background-color: #e9ecef; 
+	}
+  thead {
+    th {
+      font-weight: bold;
+      padding: 10px;
+      text-align: left;
+    }
+  }
+
+  tbody {
+		th{
+			vertical-align: middle;
+			padding: 10px;
+			max-width: 70px;
+		}
+    tr {
+      &:nth-child(even) {
+        background-color: #f9f9f9; /* Alternate row coloring */
+      }
+
+      &:hover {
+        background-color: #e0e0e0; /* Row hover effect */
+      }
+
+      td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: top; /* Top-align text in cells */
+      }
+    }
+  }
+}
+
+.contentWrapper{
+	padding: 0 10px;
+	box-sizing: border-box;
+}
