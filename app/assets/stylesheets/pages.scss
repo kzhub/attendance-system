@@ -8,5 +8,10 @@
 	ul{
 		display: flex;
 		gap: 24px;
+		li{
+			&:last-child{
+				margin-left: auto;
+			}
+		}
 	}
 }
