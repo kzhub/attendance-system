@@ -5,18 +5,25 @@ class AttendancesController < ApplicationController
   before_action :correct_user
 
   def index
-    @attendances = Attendance.where(user_id: params[:user_id])
-
     year = params[:year].to_i
     month = params[:month].to_i
 
     @holidays = Attendance.getHolidays(year, month)
     @days = Attendance.getCalender(year, month)
+
+    if year == 0 || month == 0
+      current_time = Time.now
+      year = current_time.year
+      month = current_time.month
+    end
+
+    start_date = Date.new(year, month, 1)
+    end_date = start_date.end_of_month
+
+    @attendances = Attendance.where(user_id: params[:user_id]).where(attendance_date: start_date..end_date)
   end
 
   def new
-    # lastAttendance = Attendance.where(user_id: params[:user_id]).order(created_at: :desc).first
-    # lastAttendance = Attendance.where(user_id: params[:user_id], created_at: Date.today.beginning_of_day..Date.today.end_of_day).order(created_at: :desc).first
     lastAttendance = Attendance.where(user_id: params[:user_id], attendance_date: Date.today).order(attendance_date: :desc).first
     if lastAttendance.nil?
       @lastAttendance = @user.attendances.new
