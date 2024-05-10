@@ -1,4 +1,3 @@
-    
 - query_year = params[:year]
 - query_month = params[:month]
 
@@ -9,7 +8,7 @@
   - current_date = Date.today
   - year = current_date.year
   - month = current_date.month
-%h1 #{year}年 #{month}月
+%h1.pageTitle #{year}年 #{month}月の出勤簿
 
 
 - total_time = 0
@@ -19,35 +18,34 @@
     - break_time = (attendance.breaktime_endtime - attendance.breaktime_starttime)
     - net_work_time = work_time - break_time
     - total_time += net_work_time
+  - elsif attendance.attendance_endtime && attendance.attendance_starttime
+    - total_time += (attendance.attendance_endtime - attendance.attendance_starttime)
 - hours = total_time / 3600
 - minutes = (total_time % 3600) / 60
 - formatted_time = "#{sprintf('%02d', hours)}:#{sprintf('%02d', minutes)}"
 
-%p 合計時間: #{formatted_time}
-
-
 %form#dateForm
-  %label(for="yearSelect")
-  %select#yearSelect(name="year")
-    %option(value="2024") 2024
-    %option(value="2025") 2025
-    %label(for="monthSelect") 月:
-  %select#monthSelect(name="month")
-    - (1..12).each do |month|
-      %option{value: month} #{month}月
-  %button{type: "button", onclick: "navigate()"} 移動
+  %label.selectorDate(for="yearSelect")
+    %select#yearSelect(name="year")
+      %option(value="2024") 2024
+      %option(value="2025") 2025
+      %label(for="monthSelect") 月:
+  %label.selectorDate(for="yearSelect")
+    %select#monthSelect(name="month")
+      - (1..12).each do |month|
+        %option{value: month} #{month}月
+  %button.filterButton{type: "button", onclick: "navigate()"} 表示
 
-
-%table
+%table.attendanceList
   %thead
     %tr
       %th 日付
       %th 休日区分
       %th 出勤時刻
       %th 退勤時刻
-      %th 休憩開始時間
-      %th 休憩終了時間
-      %th 勤務合計
+      %th 休憩開始時刻
+      %th 休憩終了時刻
+      %th 勤務時間
   %tbody
   - @days.each do |date|
     - day_of_week = %w(日 月 火 水 木 金 土)[date.wday]
@@ -67,15 +65,24 @@
       %td
         - if attendance_starttime.present? && attendance_endtime.present?
           - if breaktime_starttime.present? && breaktime_endtime.present?
-            - breaktime_duration_seconds =  (matching_attendance.breaktime_starttime - matching_attendance.breaktime_endtime).to_i
+            - breaktime_duration_seconds =  (matching_attendance.breaktime_endtime - matching_attendance.breaktime_starttime).to_i
+          - else 
+            - breaktime_duration_seconds = 0
           - attendance_duration_seconds = (matching_attendance.attendance_endtime - matching_attendance.attendance_starttime).to_i
-          - breaktime_duration_seconds = (matching_attendance.breaktime_endtime - matching_attendance.breaktime_starttime).to_i
+          -# - breaktime_duration_seconds = (matching_attendance.breaktime_endtime - matching_attendance.breaktime_starttime).to_i
           - sum_work_seconds = attendance_duration_seconds - breaktime_duration_seconds
          
           - hours = sum_work_seconds / 3600
           - minutes = (sum_work_seconds % 3600) / 60
           = "#{sprintf('%02d', hours)}:#{sprintf('%02d', minutes)}"
-
+  %tr
+    %td= '合計'
+    %td=''
+    %td=''
+    %td=''
+    %td=''
+    %td=''
+    %td #{formatted_time}
 
 :javascript
     const navigate = () => {
@@ -91,3 +98,16 @@
   
       window.location.href = currentURL.toString();
     }
+    const setInitialValues = () => {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const currentMonth = currentDate.getMonth() + 1; 
+
+      const yearSelect = document.getElementById('yearSelect');
+      const monthSelect = document.getElementById('monthSelect');
+
+      yearSelect.value = currentYear;
+      monthSelect.value = currentMonth;
+    };
+
+    window.addEventListener('DOMContentLoaded', setInitialValues);

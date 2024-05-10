@@ -1,16 +1,18 @@
-.row
-  .col-md-6.col-md-offset-3
-    = form_for(@user) do |f|
-      = f.label :name
-      = f.text_field :name
+.loginContents
+  .row
+    .loginWrapper
+      %h1 アカウント作成
+      = form_for(@user) do |f|
+        -# = f.label :name
+        = f.text_field :name, class: 'form-control',placeholder: 'ユーザーネーム'
 
-      = f.label :email
-      = f.email_field :email
+        -# = f.label :email
+        = f.email_field :email, class: 'form-control',placeholder: 'メールアドレス'
 
-      = f.label :password
-      = f.password_field :password
+        -# = f.label :password
+        = f.password_field :password, class: 'form-control',placeholder: 'パスワード'
 
-      = f.label :password_confirmation, "Confirmation"
-      = f.password_field :password_confirmation
+        -# = f.label :password_confirmation, "Confirmation"
+        = f.password_field :password_confirmation,class: 'form-control' ,placeholder: 'パスワード再入力'
 
-      = f.submit "Create my account", class: "btn btn-primary"
+        = f.submit "アカウント作成", class: "loginButton"
