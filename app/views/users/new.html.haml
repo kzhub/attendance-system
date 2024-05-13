@@ -14,5 +14,6 @@
 
         -# = f.label :password_confirmation, "Confirmation"
         = f.password_field :password_confirmation,class: 'form-control' ,placeholder: 'パスワード再入力'
+        %a{ href: "/login" } ログインはこちら
 
         = f.submit "アカウント作成", class: "loginButton"
