@@ -8,5 +8,6 @@
       
         -# = f.label :password
         = f.password_field :password, class: 'form-control', placeholder: 'パスワード'
+        %a{ href: "/users/new" } アカウント作成はこちら
       
         = f.submit "Login", class: "loginButton"
