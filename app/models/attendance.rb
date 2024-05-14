@@ -27,27 +27,6 @@ class Attendance < ApplicationRecord
     Attendance.exists?(user_id: self.user_id, attendance_date: today_date)
   end
 
-  # def is_attendance?(user_id)
-  #   user = User.find_by(id: user_id)
-  #   last_attendance = user.attendances.order(created_at: :desc).first
-  #   if last_attendance && last_attendance.attendance_endtime.nil?
-  #     [true, last_attendance.id]
-  #   else
-  #     [false,000]#magic numberは修正すること
-  #   end
-  # end
-
-  # def is_breaktime?(user_id)
-  #   user = User.find_by(id: user_id)
-  #   last_attendance = user.attendances.order(created_at: :desc).first
-  #   if last_attendance && last_attendance.breaktime_starttime.nil?
-  #     false
-  #   else
-  #     true
-  #   end
-
-  # end
-
   private
     def self.getCurrentYearMonth(year, month)
       today = Date.today
