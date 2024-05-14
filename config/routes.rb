@@ -5,8 +5,8 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  resources :users do
-    resources :attendances do
+  resources :users, only: %i[show new create]  do
+    resources :attendances, only: %i[index new create update]  do
       resource :breaktimes_start, only: %i[create], controller: 'attendances/breaktimes_start'
       resource :breaktimes_end, only: %i[create], controller: 'attendances/breaktimes_end'
     end
